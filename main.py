@@ -3,12 +3,6 @@ import trading_simulator as trade
 import pandas as pd
 from getdata import get_stock_data
 
-"""
-可否幫我為股價數據進行詳細的技術分析, 包括 1.多空力量對比, 2. 趨勢強度量化分數（每一個評分項0-10分）, 
-然後預測之後最有可能的股價走勢, 推測可能的支持和壓力位, 然後判斷現時最佳的策略,如果你建議了多個策略, 
-為你提出的策略排列優先度, 建議越具體越好 
-"""
-
 ticker = 'AAPL'
 start_date = "2020-1-1"
 end_date = "2025-5-20"
