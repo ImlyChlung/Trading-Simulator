@@ -9,9 +9,9 @@
 - **技術指標計算**: 利用 indicator.py 計算包括 SMA、MACD、布林帶、RSI、KDJ 等多種投資常用技術指標，並允許自定義參數，滿足多樣化策略需求。
 
 - **自定義交易策略**: 在 trading_simulator.py 中，通過修改 generate_signals 函數內的 buy_condition（買入條件）與 sell_condition（賣出條件），輕鬆定制交易策略。注意：
-- 模擬僅支持買入與賣出，不包含做空操作。
-- 僅在有持倉時，賣出信號才生效。
-- 每次交易採用固定股數（例如每次交易 100 股）。
+  - 模擬僅支持買入與賣出，不包含做空操作。
+  - 僅在有持倉時，賣出信號才生效。
+  - 每次交易採用固定股數（例如每次交易 100 股）。
 
 
 - 生成indicator.csv和simulator_trades.csv文件, 用於查閱數據, indicator.csv包括用戶想分析的所有數據, simulator_trades.csv則是模擬交易記錄
