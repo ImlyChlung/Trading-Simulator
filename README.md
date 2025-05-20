@@ -4,12 +4,15 @@
 
 ## 核心功能
 
-- 數據獲取
-  使用 getdata.py 模組，通過 yfinance 獲取最新股票數據，確保交易策略基於實時市場狀況。
+- **數據獲取**: 使用 getdata.py 模組，通過 yfinance 獲取最新股票數據，確保交易策略基於實時市場狀況。
 
-- 用股票數據計算技術指標的數據(indicator.py)，可使用的技術指標包括SMA, MACD, 布林帶, RSI, KDJ等投資者常用指標, 而且可以自定義參數
+- **技術指標計算**: 利用 indicator.py 計算包括 SMA、MACD、布林帶、RSI、KDJ 等多種投資常用技術指標，並允許自定義參數，滿足多樣化策略需求。
 
-- 可以在trading_simulator.py自定義買賣策略，在generate_signals函數中的buy_condition可修改買入條件, sell_condition則是賣出條件, 模擬交易器不考慮做空, 只有在有持倉的情況下賣出信號才有效, 每次買賣均假設交易股數相同, 例如每次交易100股
+- **自定義交易策略**: 在 trading_simulator.py 中，通過修改 generate_signals 函數內的 buy_condition（買入條件）與 sell_condition（賣出條件），輕鬆定制交易策略。注意：
+- 模擬僅支持買入與賣出，不包含做空操作。
+- 僅在有持倉時，賣出信號才生效。
+- 每次交易採用固定股數（例如每次交易 100 股）。
+
 
 - 生成indicator.csv和simulator_trades.csv文件, 用於查閱數據, indicator.csv包括用戶想分析的所有數據, simulator_trades.csv則是模擬交易記錄
 
