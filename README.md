@@ -41,8 +41,8 @@
 
 要使用此模型，您需要安裝 Python 以及以下程式庫：
 
-- NumPy
-- Pandas
+- numpy
+- pandas
 - yfinance
 
 您可以使用 pip 安裝這些程式庫：
