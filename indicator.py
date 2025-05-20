@@ -107,15 +107,8 @@ def KDJ(extended_full_data, close_prices, n=9, m=3):
 
     return KDJ
 
-#BOLL
+#BOLL 布林通道
 def BOLL(close_prices, extended_prices, window=20, k=2):
-    """
-    計算布林通道
-    :param close_series: 收盤價序列 (pd.Series)
-    :param window: 移動平均窗口 (默認20日)
-    :param k: 標準差倍數 (默認2)
-    :return: DataFrame，包含中軌、上軌、下軌
-    """
     # 計算中軌（20日SMA）
     middle_band = extended_prices.rolling(window=window).mean()
 
