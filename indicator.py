@@ -3,20 +3,37 @@ import numpy as np
 
 #pct change 漲跌百分點
 def pct_change(close_prices):
+
     pct_change = close_prices.pct_change()*100
     pct_change = pct_change.bfill()
-    return pct_change.to_frame(name='Pct_Change')
+    pct_change = pct_change.to_frame(name='Pct_Change')
+
+    return pct_change
 
 #SMA 簡單移動平均線
-def SMA(close_prices, extended_price, window_list):
+def SMA(close_prices, extended_prices, window_list):
+
     SMA = pd.DataFrame(index=close_prices.index)
     for window in window_list:
-        SMA[f'SMA_{window}'] = extended_price.rolling(window).mean()
-    return SMA.dropna()
+        SMA[f'SMA_{window}'] = extended_prices.rolling(window).mean()
+    SMA = SMA.dropna()
+
+    return SMA
+
+#EMA 指數移動平均線
+def EMA(close_prices, extended_prices, window_list):
+
+    EMA = pd.DataFrame(index=close_prices.index)
+    for window in window_list:
+        EMA[f'EMA_{window}'] = extended_prices.ewm(span=window, adjust=False).mean()
+    EMA = EMA.dropna()
+
+    return EMA
 
 #RSI 相對強弱指標
 def RSI(close_prices, extended_prices, window_list):
-    RSI = pd.DataFrame(index=extended_prices.index)
+
+    RSI = pd.DataFrame(index=close_prices.index)
     for window in window_list:
         delta = extended_prices.diff(1).bfill()
         gain = delta.where(delta > 0, 0)
@@ -32,10 +49,14 @@ def RSI(close_prices, extended_prices, window_list):
 
         # 將結果存入特徵DataFrame
         RSI[f'RSI_{window}'] = rsi
-    return RSI.loc[close_prices.index[0]:close_prices.index[-1]].dropna()
+
+    RSI = RSI.dropna()
+
+    return RSI
 
 #MACD
 def MACD(close_prices, extended_prices, fast_period=12, slow_period=26, signal_period=9):
+
     # 計算短期與長期 EMA
     ema_fast = extended_prices.ewm(span=fast_period, adjust=False).mean()
     ema_slow = extended_prices.ewm(span=slow_period, adjust=False).mean()
@@ -51,17 +72,18 @@ def MACD(close_prices, extended_prices, fast_period=12, slow_period=26, signal_p
 
     # 建立結果 DataFrame，保持原 Series 的日期索引
     MACD = pd.DataFrame({
-        'MACD': MACD_val,
         'DIF': DIF,
         'DEA': DEA,
-    }, index=extended_prices.index)
+        'MACD': MACD_val
+    }, index=close_prices.index)
 
-    MACD = MACD.loc[close_prices.index[0]:close_prices.index[-1]]
+    MACD = MACD.dropna()
 
     return MACD
 
 #KDJ
 def KDJ(extended_full_data, close_prices, n=9, m=3):
+
     high = extended_full_data['High']
     low = extended_full_data['Low']
     close = extended_full_data['Close']
@@ -101,14 +123,15 @@ def KDJ(extended_full_data, close_prices, n=9, m=3):
         'K': K,
         'D': D,
         'J': J
-    }, index=extended_full_data.index)
+    }, index=close_prices.index)
 
-    KDJ = KDJ.loc[close_prices.index[0]:close_prices.index[-1]]
+    KDJ = KDJ.dropna()
 
     return KDJ
 
-#BOLL 布林通道
+#BOLL
 def BOLL(close_prices, extended_prices, window=20, k=2):
+
     # 計算中軌（20日SMA）
     middle_band = extended_prices.rolling(window=window).mean()
 
@@ -124,9 +147,9 @@ def BOLL(close_prices, extended_prices, window=20, k=2):
         'BOLL_Middle': middle_band,
         'BOLL_Upper': upper_band,
         'BOLL_Lower': lower_band
-    }, index=extended_prices.index)
+    }, index=close_prices.index)
 
-    BOLL = BOLL.loc[close_prices.index[0]:close_prices.index[-1]]
+    BOLL = BOLL.dropna()
 
     return BOLL
 
