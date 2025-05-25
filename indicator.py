@@ -16,7 +16,6 @@ def SMA(close_prices, extended_prices, window_list):
     SMA = pd.DataFrame(index=close_prices.index)
     for window in window_list:
         SMA[f'SMA_{window}'] = extended_prices.rolling(window).mean()
-    SMA = SMA.dropna()
 
     return SMA
 
@@ -26,7 +25,6 @@ def EMA(close_prices, extended_prices, window_list):
     EMA = pd.DataFrame(index=close_prices.index)
     for window in window_list:
         EMA[f'EMA_{window}'] = extended_prices.ewm(span=window, adjust=False).mean()
-    EMA = EMA.dropna()
 
     return EMA
 
@@ -49,8 +47,6 @@ def RSI(close_prices, extended_prices, window_list):
 
         # 將結果存入特徵DataFrame
         RSI[f'RSI_{window}'] = rsi
-
-    RSI = RSI.dropna()
 
     return RSI
 
@@ -76,8 +72,6 @@ def MACD(close_prices, extended_prices, fast_period=12, slow_period=26, signal_p
         'DEA': DEA,
         'MACD': MACD_val
     }, index=close_prices.index)
-
-    MACD = MACD.dropna()
 
     return MACD
 
@@ -125,8 +119,6 @@ def KDJ(extended_full_data, close_prices, n=9, m=3):
         'J': J
     }, index=close_prices.index)
 
-    KDJ = KDJ.dropna()
-
     return KDJ
 
 #BOLL
@@ -148,8 +140,6 @@ def BOLL(close_prices, extended_prices, window=20, k=2):
         'BOLL_Upper': upper_band,
         'BOLL_Lower': lower_band
     }, index=close_prices.index)
-
-    BOLL = BOLL.dropna()
 
     return BOLL
 
