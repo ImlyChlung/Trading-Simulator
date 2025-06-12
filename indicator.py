@@ -143,3 +143,17 @@ def BOLL(close_prices, extended_prices, window=20, k=2):
 
     return BOLL
 
+# OBV 能量潮指标
+def OBV(close_prices, volume):
+    # 計算價格變動方向
+    price_diff = close_prices.diff()
+
+    # 創建符號序列 (上漲:1, 下跌:-1, 平盤:0)
+    direction = np.sign(price_diff)
+    direction.iloc[0] = 1  # 第一个交易日视为上涨
+
+    obv = (direction * volume).cumsum()
+
+    OBV = obv.to_frame(name='OBV')
+
+    return OBV
