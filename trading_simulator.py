@@ -10,6 +10,8 @@ def generate_signals(indicator_df):
     最後函數返還 signals (DataFrame)
     """
 
+    df = indicator_df
+
     buy_condition = (
                         (indicator_df['RSI_14'] < 55 ) &
                         (indicator_df['MACD'] > 0) &
