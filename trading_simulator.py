@@ -112,6 +112,8 @@ def generate_trades(signals):
     max_profit =  closed_trades["profit_pct"].max().round(2)
     min_profit =  closed_trades["profit_pct"].min().round(2)
 
+    print("\n模擬交易:")
+    print("=" * 50)
     print(f"有效交易次數: {total_closed_trades}")
     print(f"平均收益率: {average_profit}%")
     print(f"最大盈利/最小虧損: {max_profit}%")
